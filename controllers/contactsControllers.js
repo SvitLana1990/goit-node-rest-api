@@ -1,8 +1,10 @@
 const contacts = require("../services/contactsServices.js");
 const ctrlWrapper = require("../helpers/ctrlWrapper.js");
+const Contact = require("../models/contacts.js");
 
 const getAllContacts = async (req, res) => {
   const result = await contacts.listContacts();
+  // const result = await Contact.find();
   if (!result) {
     return res.status(404).json({ message: "Not Found" });
   }
@@ -19,7 +21,8 @@ const getContactById = async (req, res) => {
 };
 
 const createContact = async (req, res) => {
-  const result = await contacts.addContact(req.body);
+  // const result = await contacts.addContact(req.body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 
