@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
-import contactsRouter from "./routes/contactsRouter.js";
+const contactsRouter = require("./routes/contactsRouter.js");
 
 const app = express();
 
