@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const handleMongooseError = require("../midlevares/handleMongooseError");
+const handleMongooseError = require("../midlevares/index");
 
 const contactSchema = new Schema(
   {

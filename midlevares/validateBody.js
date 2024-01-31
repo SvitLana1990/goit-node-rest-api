@@ -4,7 +4,10 @@ const validateBody = (schema) => {
     if (error) {
       return res
         .status(400)
-        .json({ message: "Body must have at least one field" });
+        .json({
+          message:
+            "Body must have at least one of field: name, email, phone, favorite",
+        });
     }
     next();
   };
