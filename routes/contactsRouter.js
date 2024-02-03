@@ -6,7 +6,7 @@ const {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
-} = require("../schemas/contactsSchemas.js");
+} = require("../schemas/index.js");
 
 const {
   getAllContacts,

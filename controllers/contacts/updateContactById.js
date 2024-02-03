@@ -1,14 +1,12 @@
-const Contact = require("../../models/contacts");
+const Contact = require("../../models/index");
 
 const updateContactById = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
   if (Object.keys(body).length === 0) {
-    return res
-      .status(400)
-      .json({
-        message: "Body must have at least one of field: name, email, phone",
-      });
+    return res.status(400).json({
+      message: "Body must have at least one of field: name, email, phone",
+    });
   }
   const result = await Contact.findByIdAndUpdate(id, body, { new: true });
   if (!result) {
