@@ -6,7 +6,7 @@ const validateBody = (schema) => {
         .status(400)
         .json({
           message:
-            "Body must have at least one of field: name, email, phone, favorite",
+            "Body must have at least one field",
         });
     }
     next();
