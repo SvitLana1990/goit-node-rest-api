@@ -10,8 +10,6 @@ module.exports = {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
-};
-module.exports = {
   registerSchema,
   loginSchema,
 };
