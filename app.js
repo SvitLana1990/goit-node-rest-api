@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 dotenv.config();
 const { DB_HOST } = process.env;
 
-const { contactsRouter, authRouter } = require("./routes/index");
+const { contactsRouter, authRouter } = require("./routes");
 
 const app = express();
 

@@ -1,4 +1,4 @@
-const { Contact } = require("../../models/index");
+const { Contact } = require("../../models");
 
 const getContactById = async (req, res) => {
   const { id } = req.params;
@@ -6,7 +6,7 @@ const getContactById = async (req, res) => {
   if (!result) {
     return res.status(404).json({ message: "Not Found" });
   }
-  res.json(result);
+  res.status(200).json(result);
 };
 
 module.exports = getContactById;

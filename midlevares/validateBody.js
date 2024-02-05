@@ -1,5 +1,5 @@
 const validateBody = (schema) => {
-  const func = (req, res, next) => {
+  const fun = (req, res, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
       return res
@@ -12,7 +12,7 @@ const validateBody = (schema) => {
     next();
   };
 
-  return func;
+  return fun;
 };
 
 module.exports = validateBody;

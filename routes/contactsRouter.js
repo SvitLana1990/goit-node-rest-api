@@ -1,16 +1,12 @@
 const express = require("express");
-const ctrlWrapper = require("../helpers/index.js");
-const {
-  validateBody,
-  isValidId,
-  authenticate,
-} = require("../midlevares/index.js");
+const ctrlWrapper = require("../helpers");
+const { validateBody, isValidId, authenticate } = require("../midlevares");
 
 const {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
-} = require("../schemas/index.js");
+} = require("../schemas");
 
 const {
   getAllContacts,
@@ -19,7 +15,7 @@ const {
   updateContactById,
   updateStatusContact,
   deleteContact,
-} = require("../controllers/contacts/index.js");
+} = require("../controllers/contacts");
 
 const contactsRouter = express.Router();
 

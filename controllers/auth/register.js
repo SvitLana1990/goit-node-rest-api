@@ -1,5 +1,5 @@
-const { User } = require("../../models/index");
-const bcryptjs = require("bcryptjs");
+const { User } = require("../../models");
+const bcrypt = require("bcrypt");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -8,13 +8,13 @@ const register = async (req, res) => {
     return res.status(409).json({ message: "Email already in use" });
   }
 
-  const hashPassword = await bcryptjs.hash(password, 10);
+  const hashPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({ ...req.body, password: hashPassword });
   res.status(201).json({
     user: {
       email: newUser.email,
-      subscription: "starter",
+      subscription: newUser.subscription,
     },
   });
 };
