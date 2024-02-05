@@ -1,6 +1,10 @@
 const express = require("express");
 const ctrlWrapper = require("../helpers/index.js");
-const { validateBody, isValidId } = require("../midlevares/index.js");
+const {
+  validateBody,
+  isValidId,
+  authenticate,
+} = require("../midlevares/index.js");
 
 const {
   createContactSchema,
@@ -19,20 +23,32 @@ const {
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", ctrlWrapper(getAllContacts));
+contactsRouter.get("/", authenticate, ctrlWrapper(getAllContacts));
 
-contactsRouter.get("/:id", isValidId, ctrlWrapper(getContactById));
+contactsRouter.get(
+  "/:id",
+  authenticate,
+  isValidId,
+  ctrlWrapper(getContactById)
+);
 
-contactsRouter.delete("/:id", isValidId, ctrlWrapper(deleteContact));
+contactsRouter.delete(
+  "/:id",
+  authenticate,
+  isValidId,
+  ctrlWrapper(deleteContact)
+);
 
 contactsRouter.post(
   "/",
+  authenticate,
   validateBody(createContactSchema),
   ctrlWrapper(createContact)
 );
 
 contactsRouter.put(
   "/:id",
+  authenticate,
   validateBody(updateContactSchema),
   isValidId,
   ctrlWrapper(updateContactById)
@@ -40,6 +56,7 @@ contactsRouter.put(
 
 contactsRouter.patch(
   "/:id/favorite",
+  authenticate,
   validateBody(updateFavoriteSchema),
   isValidId,
   ctrlWrapper(updateStatusContact)
