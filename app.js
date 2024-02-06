@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 dotenv.config();
 const { DB_HOST } = process.env;
 
-const contactsRouter = require("./routes/contactsRouter.js");
+const { contactsRouter, authRouter } = require("./routes");
 
 const app = express();
 
@@ -15,6 +15,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
+app.use("/users", authRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((_, res) => {

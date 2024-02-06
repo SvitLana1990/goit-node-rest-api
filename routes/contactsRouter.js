@@ -1,42 +1,61 @@
 const express = require("express");
-const validateBody = require("../midlevares/validateBody.js");
+const ctrlWrapper = require("../helpers");
+const { validateBody, isValidId, authenticate } = require("../midlevares");
+
 const {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
-} = require("../schemas/contactsSchemas.js");
+} = require("../schemas");
+
 const {
   getAllContacts,
   getContactById,
-  deleteContact,
   createContact,
   updateContactById,
   updateStatusContact,
-} = require("../controllers/contactsControllers.js");
-const isValidId = require("../midlevares/isValidId.js");
+  deleteContact,
+} = require("../controllers/contacts");
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", getAllContacts);
+contactsRouter.get("/", authenticate, ctrlWrapper(getAllContacts));
 
-contactsRouter.get("/:id", isValidId, getContactById);
+contactsRouter.get(
+  "/:id",
+  authenticate,
+  isValidId,
+  ctrlWrapper(getContactById)
+);
 
-contactsRouter.delete("/:id", isValidId, deleteContact);
+contactsRouter.delete(
+  "/:id",
+  authenticate,
+  isValidId,
+  ctrlWrapper(deleteContact)
+);
 
-contactsRouter.post("/", validateBody(createContactSchema), createContact);
+contactsRouter.post(
+  "/",
+  authenticate,
+  validateBody(createContactSchema),
+  ctrlWrapper(createContact)
+);
 
 contactsRouter.put(
   "/:id",
+  authenticate,
   validateBody(updateContactSchema),
   isValidId,
-  updateContactById
+  ctrlWrapper(updateContactById)
 );
 
 contactsRouter.patch(
   "/:id/favorite",
+  authenticate,
   validateBody(updateFavoriteSchema),
   isValidId,
-  updateStatusContact
+  ctrlWrapper(updateStatusContact)
 );
 
 module.exports = contactsRouter;
