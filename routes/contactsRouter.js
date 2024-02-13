@@ -1,5 +1,5 @@
 const express = require("express");
-const ctrlWrapper = require("../helpers");
+const { ctrlWrapper } = require("../helpers");
 const { validateBody, isValidId, authenticate } = require("../midlevares");
 
 const {
