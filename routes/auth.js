@@ -1,6 +1,6 @@
 const express = require("express");
 const { validateBody, authenticate, upload } = require("../midlevares");
-const { ctrlWrapper } = require("../helpers");
+const ctrlWrapper = require("../helpers");
 const {
   register,
   login,
@@ -12,29 +12,33 @@ const {
 } = require("../controllers/auth");
 const { registerSchema, loginSchema, verifySchema } = require("../schemas");
 
-const router = express.Router();
+const authRouter = express.Router();
 
-router.post("/register", validateBody(registerSchema), ctrlWrapper(register));
+authRouter.post(
+  "/register",
+  validateBody(registerSchema),
+  ctrlWrapper(register)
+);
 
-router.get("/verify/:verificationToken", ctrlWrapper(verifyEmail));
+authRouter.get("/verify/:verificationToken", ctrlWrapper(verifyEmail));
 
-router.post(
+authRouter.post(
   "/verify",
   validateBody(verifySchema),
   ctrlWrapper(resendVerifyEmail)
 );
 
-router.post("/login", validateBody(loginSchema), ctrlWrapper(login));
+authRouter.post("/login", validateBody(loginSchema), ctrlWrapper(login));
 
-router.get("/current", authenticate, ctrlWrapper(getCurrent));
+authRouter.get("/current", authenticate, ctrlWrapper(getCurrent));
 
-router.post("/logout", authenticate, ctrlWrapper(logout));
+authRouter.post("/logout", authenticate, ctrlWrapper(logout));
 
-router.patch(
+authRouter.patch(
   "/avatars",
   authenticate,
   upload.single("avatar"),
   ctrlWrapper(updateAvatar)
 );
 
-module.exports = router;
+module.exports = authRouter;

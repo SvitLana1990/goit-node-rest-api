@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { sendEmail } = require("../../helpers");
+const sendEmail = require("../../services/email");
 require("dotenv").config();
 
 const { BASE_URL } = process.env;
