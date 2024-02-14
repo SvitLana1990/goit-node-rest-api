@@ -1,13 +1,11 @@
 const express = require("express");
 const ctrlWrapper = require("../helpers");
 const { validateBody, isValidId, authenticate } = require("../midlevares");
-
 const {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
 } = require("../schemas");
-
 const {
   getAllContacts,
   getContactById,
@@ -16,7 +14,6 @@ const {
   updateStatusContact,
   deleteContact,
 } = require("../controllers/contacts");
-
 const contactsRouter = express.Router();
 
 contactsRouter.get("/", authenticate, ctrlWrapper(getAllContacts));

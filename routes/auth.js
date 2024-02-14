@@ -7,24 +7,38 @@ const {
   logout,
   getCurrent,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } = require("../controllers/auth");
-const { registerSchema, loginSchema } = require("../schemas");
+const { registerSchema, loginSchema, verifySchema } = require("../schemas");
 
-const router = express.Router();
+const authRouter = express.Router();
 
-router.post("/register", validateBody(registerSchema), ctrlWrapper(register));
+authRouter.post(
+  "/register",
+  validateBody(registerSchema),
+  ctrlWrapper(register)
+);
 
-router.post("/login", validateBody(loginSchema), ctrlWrapper(login));
+authRouter.get("/verify/:verificationToken", ctrlWrapper(verifyEmail));
 
-router.get("/current", authenticate, ctrlWrapper(getCurrent));
+authRouter.post(
+  "/verify",
+  validateBody(verifySchema),
+  ctrlWrapper(resendVerifyEmail)
+);
 
-router.post("/logout", authenticate, ctrlWrapper(logout));
+authRouter.post("/login", validateBody(loginSchema), ctrlWrapper(login));
 
-router.patch(
+authRouter.get("/current", authenticate, ctrlWrapper(getCurrent));
+
+authRouter.post("/logout", authenticate, ctrlWrapper(logout));
+
+authRouter.patch(
   "/avatars",
   authenticate,
   upload.single("avatar"),
   ctrlWrapper(updateAvatar)
 );
 
-module.exports = router;
+module.exports = authRouter;
